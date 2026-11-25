@@ -9,6 +9,8 @@ npm run dev
 
 Open <http://127.0.0.1:4173/>.
 
+Vercel deploys the frontend as a static site using `vercel.json`. The local Node server is only for development; Vercel does not need a server function or a build command.
+
 Routes: `/`, `/about`, `/pricing`, `/services`, `/faq`, `/contact-us`, `/book`, and six individual routes under `/services/`.
 
 The booking and contact forms validate and preview entries in the browser. They do not submit data, reserve sessions, or take payment. Pricing and availability are placeholders until confirmed.
