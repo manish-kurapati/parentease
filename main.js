@@ -1,4 +1,5 @@
 const video = document.querySelector('#scene');
+const frame = document.querySelector('#scene-frame');
 const canvas = document.querySelector('#stars');
 if (video && canvas) {
 const context = canvas.getContext('2d');
@@ -7,8 +8,14 @@ const sampleContext = sampleCanvas.getContext('2d', { willReadFrequently: true }
 
 const SENSITIVITY = 0.8;
 const STAR_COUNT = 70;
+const FRAME_COUNT = 24;
+const mobileHero = window.matchMedia('(max-width: 760px)');
 const stars = [];
 let targetTime = 0;
+let targetFrame = 0;
+let currentFrame = 0;
+const frameImages = [];
+const frameReady = [];
 let seeking = false;
 let previousX = null;
 let activePointer = null;
@@ -50,12 +57,13 @@ function resize() {
 }
 
 function updateSkyMask() {
-  if (video.readyState < HTMLMediaElement.HAVE_CURRENT_DATA) return;
-  videoWidth = video.videoWidth || videoWidth;
-  videoHeight = video.videoHeight || videoHeight;
+  const source = mobileHero.matches ? frame : video;
+  if (mobileHero.matches ? !frame.complete || !frame.naturalWidth : video.readyState < HTMLMediaElement.HAVE_CURRENT_DATA) return;
+  videoWidth = mobileHero.matches ? frame.naturalWidth : video.videoWidth || videoWidth;
+  videoHeight = mobileHero.matches ? frame.naturalHeight : video.videoHeight || videoHeight;
   sampleCanvas.width = 256;
   sampleCanvas.height = Math.round(256 * videoHeight / videoWidth);
-  sampleContext.drawImage(video, 0, 0, sampleCanvas.width, sampleCanvas.height);
+  sampleContext.drawImage(source, 0, 0, sampleCanvas.width, sampleCanvas.height);
   skyPixels = sampleContext.getImageData(0, 0, sampleCanvas.width, sampleCanvas.height).data;
 
   for (const star of stars) {
@@ -122,6 +130,38 @@ function seekToTarget() {
   video.currentTime = targetTime;
 }
 
+function showMobileFrame() {
+  const index = Math.round(targetFrame);
+  const image = frameImages[index];
+  if (!frameReady[index] || index === currentFrame) return;
+  currentFrame = index;
+  frame.src = image.src;
+}
+
+function loadMobileFrames() {
+  if (frameImages.length) return;
+  for (let index = 0; index < FRAME_COUNT; index += 1) {
+    const image = new Image();
+    image.onload = async () => {
+      try { await image.decode?.(); } catch { /* A loaded image remains usable. */ }
+      frameReady[index] = true;
+      showMobileFrame();
+    };
+    image.src = `/assets/hero-frames/${String(index).padStart(2, '0')}.webp`;
+    frameImages[index] = image;
+  }
+}
+
+if (frame) {
+  frame.addEventListener('load', updateSkyMask);
+  if (frame.complete) updateSkyMask();
+  if (mobileHero.matches) loadMobileFrames();
+  mobileHero.addEventListener('change', () => {
+    if (mobileHero.matches) loadMobileFrames();
+    updateSkyMask();
+  });
+}
+
 video.addEventListener('loadedmetadata', () => {
   video.pause();
   updateSkyMask();
@@ -134,6 +174,7 @@ video.addEventListener('seeked', () => {
 });
 
 window.addEventListener('pointerdown', (event) => {
+  if (mobileHero.matches && !event.target.closest('.hero')) return;
   activePointer = event.pointerId;
   previousX = event.clientX;
 });
@@ -145,6 +186,12 @@ window.addEventListener('pointermove', (event) => {
   if (previousX === null) { previousX = event.clientX; return; }
   const delta = event.clientX - previousX;
   previousX = event.clientX;
+  if (mobileHero.matches) {
+    targetFrame = Math.max(0, Math.min(FRAME_COUNT - 1,
+      targetFrame + delta / viewportWidth * SENSITIVITY * (FRAME_COUNT - 1)));
+    showMobileFrame();
+    return;
+  }
   if (!Number.isFinite(video.duration) || video.duration <= 0) return;
   targetTime = Math.max(0, Math.min(video.duration - 0.001,
     targetTime + delta / viewportWidth * SENSITIVITY * video.duration));

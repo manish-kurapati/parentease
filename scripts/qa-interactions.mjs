@@ -14,11 +14,20 @@ try{
   await page.locator('input[name=email]').fill('test@example.com');
   await page.locator('#booking-form button').click();
   if(!await page.locator('.form-result').isVisible())throw new Error('Booking preview did not appear');
-  const mobile=await browser.newPage({viewport:{width:390,height:844}});
+  const mobile=await browser.newPage({viewport:{width:390,height:844},isMobile:true,hasTouch:true});
   await mobile.goto('http://127.0.0.1:4173/');
+  await mobile.locator('#scene-frame').evaluate(img=>new Promise(resolve=>img.complete?resolve():img.addEventListener('load',resolve,{once:true})));
+  const touch=await mobile.context().newCDPSession(mobile);
+  await touch.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:100,y:420}]});
+  await touch.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:300,y:420}]});
+  await touch.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});
+  await mobile.waitForFunction(()=>document.querySelector('#scene-frame').src.includes('/hero-frames/0')&&!document.querySelector('#scene-frame').src.endsWith('/00.webp'));
+  const frameReady=await mobile.locator('#scene-frame').evaluate(img=>img.complete&&img.naturalWidth>0);
+  if(!frameReady)throw new Error('Mobile hero frame went blank after touch');
+  await mobile.locator('.hero').screenshot({path:'C:/Users/manis/AppData/Local/Temp/parentease-mobile-touch.png'});
   await mobile.locator('.menu-toggle').click();
   if(!await mobile.locator('.mobile-nav').isVisible())throw new Error('Mobile menu did not open');
   await mobile.locator('.mobile-nav a[href="/faq"]').click();
   if(!mobile.url().endsWith('/faq'))throw new Error('Mobile navigation failed');
-  console.log(JSON.stringify({heroScrub:{before,after},bookingPreview:true,mobileNavigation:true}));
+  console.log(JSON.stringify({heroScrub:{before,after},mobileTouchFrame:frameReady,bookingPreview:true,mobileNavigation:true}));
 }finally{await browser.close();}

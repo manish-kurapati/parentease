@@ -17,4 +17,6 @@ The booking and contact forms validate and preview entries in the browser. They 
 
 The six active service animations are the supplied transparent WebP files in `assets/service-animations/`. The older SVG, PNG, and GIF assets in `assets/services/` remain available to the illustration scripts (`npm run art:svg` and `npm run art:gif`).
 
+On narrow screens, the hero scrubs preloaded WebP frames extracted from the same MP4 so touch interactions keep a visible bear. Regenerate those frames with `npm run art:hero` while the local server is running.
+
 Check routes/layout with `npm run test:layout` and interactions with `npm run test:interactions`.

@@ -5,6 +5,7 @@
     "dev": "node local-server.mjs",
     "test:layout": "node scripts/qa.mjs",
     "test:interactions": "node scripts/qa-interactions.mjs",
+    "art:hero": "node scripts/export-hero-frames.mjs",
     "art:svg": "node scripts/make-service-art.mjs",
     "art:gif": "node scripts/export-service-gifs.mjs"
   },
