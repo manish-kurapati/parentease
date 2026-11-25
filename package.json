@@ -1,0 +1,14 @@
+{
+  "name": "parentease-frontend",
+  "private": true,
+  "scripts": {
+    "dev": "node server.mjs",
+    "test:layout": "node scripts/qa.mjs",
+    "test:interactions": "node scripts/qa-interactions.mjs",
+    "art:svg": "node scripts/make-service-art.mjs",
+    "art:gif": "node scripts/export-service-gifs.mjs"
+  },
+  "devDependencies": {
+    "playwright-core": "^1.65.1"
+  }
+}

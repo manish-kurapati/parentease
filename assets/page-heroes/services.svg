@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 520" width="600" height="520">
+    <path d="M33 373C9 326 50 238 119 167S239 45 327 56c69 9 102 75 161 120 63 48 94 104 80 178-12 63-45 115-118 127H151C81 472 46 421 33 373Z" fill="#bcd4ef"/>
+    <ellipse cx="304" cy="438" rx="195" ry="31" fill="#7294c0" opacity=".48"/>
+    <g fill="#5779a8" opacity=".76"><path d="M118 423q-43-47-23-84 30 2 39 61-7-83 14-100 31 19 15 95 19-51 47-47 9 43-24 75Z"/></g>
+    <g fill="#eef7ff" stroke="#315d94" stroke-width="3"><circle cx="205" cy="145" r="24"><animate attributeName="cy" values="145;138;145" dur="3s" repeatCount="indefinite"/></circle><circle cx="302" cy="99" r="24"><animate attributeName="cy" values="99;93;99" dur="2.7s" repeatCount="indefinite"/></circle><circle cx="400" cy="145" r="24"><animate attributeName="cy" values="145;138;145" dur="3.3s" repeatCount="indefinite"/></circle></g>
+    <g transform="translate(106 135) scale(.65)"><g><animateTransform attributeName="transform" type="translate" values="0 0;0 4;0 0" dur="3s" repeatCount="indefinite"/>
+      <path d="M219 340c-20 30-28 72-18 94 13 24 38 22 65 13h94c27 9 52 11 65-13 10-22 2-64-18-94-27-39-59-54-94-54s-67 15-94 54Z" fill="#fffdfa" stroke="#163969" stroke-width="5" stroke-linejoin="round"/>
+      <ellipse cx="305" cy="372" rx="83" ry="73" fill="#fffdfa" stroke="#163969" stroke-width="5"/>
+      <ellipse cx="227" cy="210" rx="33" ry="34" fill="#fffdfa" stroke="#163969" stroke-width="5"/><ellipse cx="375" cy="202" rx="33" ry="34" fill="#fffdfa" stroke="#163969" stroke-width="5"/>
+      <ellipse cx="227" cy="210" rx="13" ry="15" fill="#c9dcf5"/><ellipse cx="375" cy="202" rx="13" ry="15" fill="#c9dcf5"/>
+      <path d="M210 240c6-54 42-88 94-89 58-2 99 35 103 88 6 72-42 113-103 114-59 1-103-43-94-113Z" fill="#fffdfa" stroke="#163969" stroke-width="5"/>
+      <path d="M224 241q-20-5-28 17" fill="none" stroke="#163969" stroke-width="5" stroke-linecap="round"/>
+      <ellipse cx="268" cy="283" rx="7" ry="7" fill="#163969"><animate attributeName="ry" values="7;7;1;7;7" keyTimes="0;.65;.69;.73;1" dur="4s" repeatCount="indefinite"/></ellipse><ellipse cx="342" cy="280" rx="7" ry="7" fill="#163969"><animate attributeName="ry" values="7;7;1;7;7" keyTimes="0;.65;.69;.73;1" dur="4s" repeatCount="indefinite"/></ellipse><ellipse cx="307" cy="301" rx="9" ry="7" fill="#163969"/><path d="M300 321q15 19 32 0" fill="none" stroke="#163969" stroke-width="4" stroke-linecap="round"/>
+      <path d="M233 365c-24-4-33 28-21 57 10 24 34 30 56 18 18-10 27-34 13-54-12-18-32-20-48-21Z" fill="#fffdfa" stroke="#163969" stroke-width="5"><animateTransform attributeName="transform" type="rotate" values="-2 244 394;3 244 394;-2 244 394" dur="3s" repeatCount="indefinite"/></path>
+      <path d="M371 362c24-4 37 26 25 57-10 25-35 30-57 19-18-9-27-33-15-54 10-18 31-20 47-22Z" fill="#fffdfa" stroke="#163969" stroke-width="5"><animateTransform attributeName="transform" type="rotate" values="2 357 393;-3 357 393;2 357 393" dur="3s" repeatCount="indefinite"/></path>
+      <ellipse cx="258" cy="432" rx="43" ry="26" fill="#fffdfa" stroke="#163969" stroke-width="5"/><ellipse cx="349" cy="432" rx="43" ry="26" fill="#fffdfa" stroke="#163969" stroke-width="5"/>
+    </g></g>
+    
+  </svg>
